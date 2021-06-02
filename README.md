@@ -1,4 +1,4 @@
-# eShare
+# EShare
 WebTorrent File-Sharing using just a single HTML page.
 
 Extremely portable. Just copy the HTML folder if you need nothing else. Works on both Desktop and Mobile.
