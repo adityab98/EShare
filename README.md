@@ -7,3 +7,6 @@ Easy share of files from one device to another.
 
 ## Issues:
 Need help figuring out how to actually start downloading the file once it's done torrenting.
+
+### Contributors:
+me and xali77
