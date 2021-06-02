@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<link rel="icon" href="favicon.png">
+		<meta charset="UTF-8">
+		<title>eShare</title>
+		<style type="text/css">
+			body{
+				background-color: linear-gradient(180deg, #FFFFFF 0%, #E1E1E1 46.27%, #C7C7C7 100%);
+			}
+			#progressBar {
+					height: 5px;
+					width: 0%;
+					background-color: #35b44f;
+					transition: width .4s ease-in-out;
+			}
+			body.is-seed .show-seed {
+					display: inline;
+			}
+			body.is-seed .show-leech {
+					display: none;
+			}
+			.show-seed {
+					display: none;
+			}
+			.status code {
+					font-size: 90%;
+					font-weight: 700;
+					margin-left: 3px;
+					margin-right: 3px;
+					border-bottom: 1px dashed rgba(255,255,255,0.3);
+			}
+
+			.is-seed #hero {
+					background-color: #154820;
+					transition: .5s .5s background-color ease-in-out;
+			}
+			.hero {
+					background-color: #303030;
+			}
+			.status {
+					color: #fff;
+					font-size: 17px;
+					padding: 5px;
+			}
+			a:link, a:visited {
+					color: #30a247;
+					text-decoration: none;
+			}
+			#magnetUl {
+					color: #fff;
+					font-size: 17px;
+					padding: 5px;
+			
+			}
+			.downbut{
+				width: 150px;
+				height: 50px;
+				font-family: 'Courier New', Courier, monospace;
+				font-size: 20px;
+				background: #C4C4C4;
+box-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3), -1px -1px 2px rgba(78, 78, 78, 0.5), inset -2px -4px 10px rgba(0, 0, 0, 0.4), inset -4px 4px 8px rgba(78, 78, 78, 0.2), inset 4px -4px 8px rgba(78, 78, 78, 0.2), inset -4px -4px 8px rgba(255, 255, 255, 0.9), inset 4px 4px 10px rgba(78, 78, 78, 0.9);
+border-radius: 12px;
+				cursor: pointer;
+			}
+			.downbut:hover{
+				border: 1px solid black;
+			}
+			.class{
+				width: 951px;
+height: 181px;
+
+
+background: #C4C4C4;
+box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 14px;
+			}
+
+			.up2{
+				cursor: pointer;
+				font-family: 'Courier New', Courier, monospace;
+				font-size: 20px;
+			}
+
+			input[type="file"]{
+				display: none;
+			} 
+			label{
+				background: linear-gradient(135deg, #CECECE 0%, #BABABA 100%);
+				box-shadow: -100px 100px 200px rgba(78, 78, 78, 0.2), 100px -100px 200px rgba(78, 78, 78, 0.2), -100px -100px 200px rgba(255, 255, 255, 0.9), 100px 100px 250px rgba(78, 78, 78, 0.9), inset 4px 4px 5px rgba(255, 255, 255, 0.3), inset -4px -4px 5px rgba(78, 78, 78, 0.5);
+				border-radius: 12px;
+				width:250px;
+				height: 50px;
+				font-family: 'Courier New', Courier, monospace;
+				font-size: 17px;
+				cursor: pointer;
+				margin:auto;
+				padding-bottom: 1.5%;
+				padding-right: 1.5%;
+				padding-left:1.5% ;
+				padding-top: 1.5%;
+				justify-content: center;
+			}
+			label:hover{
+				border:1px solid black;
+			}
+
+
+		</style>
+	</head>
+
+	<body>
+		<br>
+		<br>
+		<center><img src="logo.png",alt="logo" , width="302", height="97.76"></center>
+		<br>
+		<br>
+		<!-- Download -->
+
+		<center><input type="text" id="url" class="inp" placeholder="Enter magnet" style="font-family: 'Courier New', Courier, monospace;font-size: 20px; height:45px; border: 1px solid silver;border-radius: 14px;">
+		<button type="button" onclick="download()" class="downbut">Download</button></center>
+		<br>
+	
+		<div class="hero">
+			<div id="outputDl">
+				<div id="progressBar"></div>
+			</div>
+			<div class="status">
+				<div>
+					<span class="show-leech">Downloading </span>
+					<span id="magnetDl"></span>
+					<span class="show-seed">Seeding </span>
+					<span class="show-leech"> from </span>
+					<span class="show-seed"> to </span>
+					<code id="numPeersDl">0 peers</code>.
+				</div>
+				<div>
+						<code id="downloaded"></code>
+						of <code id="total"></code>
+						— <span id="remaining"></span><br/>
+						&#x2198;<code id="downloadSpeed">0 b/s</code>
+						/ &#x2197;<code id="uploadSpeedDl">0 b/s</code>
+				</div>
+			</div>
+		</div>
+
+		<br>
+		<br>
+		<hr>
+		<br>
+		<br>
+
+		<!-- Upload -->
+		
+		<center><input type="file" id="upload" class="up2">
+		<label for="upload">
+			Choose file to transfer
+		</label>
+	</center>
+	<br>
+		<br> 
+		<br>
+		<div class="hero">
+			<div id="outputUl"></div>	
+			<div class="status">	
+				<div>	
+					<span class="show-seed">Seeding </span>	
+					<span class="show-seed"> to </span>	
+					<code id="numPeersUl">0 peers</code>.	
+				</div>	
+				<div>	
+					/ &#x2197;<code id="uploadSpeedUl">0 b/s</code>	
+				</div>	
+			</div>	
+			<div id="magnetUl" hidden>
+				<a id="magnetLink"><img src="mag.png"></a>
+			</div>	
+		</div>
+
+		<!-- Imports -->
+		<script src="https://cdn.jsdelivr.net/npm/webtorrent@latest/webtorrent.min.js"></script>
+		<script src="http://momentjs.com/downloads/moment.min.js"></script>
+		<script>
+
+			// WebTorrent clients
+			var clientDl = new WebTorrent()
+			var clientUl = new WebTorrent()
+
+			// HTML elements
+			var $body = document.body
+			var $progressBar = document.querySelector('#progressBar')
+			var $numPeersUl = document.querySelector('#numPeersDl')
+			var $downloaded = document.querySelector('#downloaded')
+			var $total = document.querySelector('#total')
+			var $remaining = document.querySelector('#remaining')
+			var $uploadSpeedUl = document.querySelector('#uploadSpeed')
+			var $downloadSpeed = document.querySelector('#downloadSpeed')
+			var $numPeersUl = document.querySelector('#numPeersUl')
+			var $uploadSpeedUl = document.querySelector('#uploadSpeedUl')
+
+			// Download
+			function download() {
+				torrentId = document.getElementById("url").value
+				document.getElementById("magnetDl").value = torrentId
+				clientDl.add(torrentId, function (torrent) {
+					// Trigger statistics refresh
+					torrent.on('done', onDone)
+					setInterval(onProgress, 500)
+					onProgress()
+					var file=torrent.files[0]
+					file.appendTo('#outputDl')
+					function onProgress () {
+						$numPeersUl.innerHTML = torrent.numPeers + (torrent.numPeers === 1 ? ' peer' : ' peers')
+						var percent = Math.round(torrent.progress * 100 * 100) / 100
+						$progressBar.style.width = percent + '%'
+						$downloaded.innerHTML = prettyBytes(torrent.downloaded)
+						$total.innerHTML = prettyBytes(torrent.length)
+						var remaining
+						if (torrent.done) {
+							remaining = 'Done.'
+						} else {
+							remaining = moment.duration(torrent.timeRemaining / 1000, 'seconds').humanize()
+							remaining = remaining[0].toUpperCase() + remaining.substring(1) + ' remaining.'
+						}
+						$remaining.innerHTML = remaining
+						$downloadSpeed.innerHTML = prettyBytes(torrent.downloadSpeed) + '/s'
+						$uploadSpeedUl.innerHTML = prettyBytes(torrent.uploadSpeed) + '/s'
+					}
+					function onDone () {
+						$body.className += ' is-seed'
+						onProgress()
+					}
+				})
+			}
+
+			// Upload
+			var fileselector=document.getElementById('upload');	 
+			fileselector.addEventListener('change', (event) => {
+				var file = event.target.files[0];
+				clientUl.seed(file, function (torrent) {
+					document.getElementById("magnetLink").href = torrent.magnetURI
+					document.getElementById("magnetUl").removeAttribute("hidden")
+					var f = torrent.files[0]
+					f.appendTo('#outputUl')	 
+					setInterval(onProgress, 500)
+					onProgress()
+					function onProgress () {
+						$numPeersUl.innerHTML = torrent.numPeers + ' peers'
+						$uploadSpeedUl.innerHTML = prettyBytes(torrent.uploadSpeed) + '/s'
+					}
+				})
+			});
+
+			// Human readable bytes helper
+			function prettyBytes(num) {
+				var exponent, unit, neg = num < 0, units = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+				if (neg) num = -num
+				if (num < 1) return (neg ? '-' : '') + num + ' B'
+				exponent = Math.min(Math.floor(Math.log(num) / Math.log(1000)), units.length - 1)
+				num = Number((num / Math.pow(1000, exponent)).toFixed(2))
+				unit = units[exponent]
+				return (neg ? '-' : '') + num + ' ' + unit
+			}
+
+		</script>
+
+	</body>
+
+</html>
